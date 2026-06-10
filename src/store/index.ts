@@ -7,6 +7,7 @@ interface StoreState {
 	count: number;
 	increment: () => void;
 	decrement: () => void;
+	currentProvider: string | null;
 }
 
 const useStore = create<StoreState>()(
@@ -16,6 +17,7 @@ const useStore = create<StoreState>()(
 			appWindow: getCurrentWindow(),
 			increment: () => set((state) => ({ count: state.count + 1 })),
 			decrement: () => set((state) => ({ count: state.count - 1 })),
+			currentProvider: localStorage.getItem("settings"),
 		}),
 		{
 			name: "store",
