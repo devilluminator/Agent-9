@@ -1,13 +1,14 @@
 // import { invoke } from "@tauri-apps/api/core";
-import { Effect, PhysicalSize } from "@tauri-apps/api/window";
+//
+import { Effect, getCurrentWindow, PhysicalSize } from "@tauri-apps/api/window";
 import {
 	restoreStateCurrent,
 	StateFlags,
 } from "@tauri-apps/plugin-window-state";
 import FontFaceObserver from "fontfaceobserver";
 import { useEffect, useState } from "react";
-//
 import "./App.css";
+import Chat from "./components/Chat";
 import Footer from "./components/footer";
 import Setup from "./components/Setup";
 import Header from "./components/window-bar/Header";
@@ -15,7 +16,7 @@ import useStore from "./store";
 
 function App() {
 	// Store
-	const { appWindow } = useStore();
+	const { currentProvider } = useStore();
 	// States
 	// const [greetMsg, setGreetMsg] = useState("");
 	// const [name, setName] = useState("");
@@ -27,6 +28,7 @@ function App() {
 	// }
 	// Blur, Acrylic effects
 	async function initWindow() {
+		const appWindow = getCurrentWindow();
 		try {
 			// Fonts
 			// const observer = new FontFaceObserver('Tourner');
@@ -51,9 +53,6 @@ function App() {
 	// Effects
 	useEffect(() => {
 		initWindow();
-		// const ollmaa = executeAnyCommand("ollama --version");
-		// const lms = executeAnyCommand("lms --version");
-		// console.log(ollmaa, lms);
 	});
 	return (
 		<div
@@ -61,7 +60,7 @@ function App() {
 		>
 			<Header />
 			<main className="flex flex-col justify-center items-center h-full">
-				<Setup />
+				{!currentProvider ? <Setup /> : <Chat />}
 			</main>
 			<Footer />
 		</div>

@@ -1,9 +1,10 @@
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { StateFlags, saveWindowState } from "@tauri-apps/plugin-window-state";
 import { X } from "lucide-react";
-import useStore from "@/store";
 
 function Header() {
-	const { appWindow } = useStore();
+	const appWindow = getCurrentWindow();
+
 	// Functions
 	async function closeWindow() {
 		await appWindow.onMoved(() => {

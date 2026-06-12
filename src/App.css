@@ -179,3 +179,33 @@ input[type="password"]::-webkit-textfield-decoration-container,
 input[type="password"]::-webkit-reveal {
   display: none !important;
 }
+
+/* Modern standard scrollbar styling (Firefox and modern browsers) */
+.custom-scrollbar {
+  scrollbar-width: thin; /* Size: thin | auto | none */
+  scrollbar-color: #52525b #18181b75; /* Color: thumb (zinc-600) | track (zinc-900) */
+}
+
+/* Chrome, Edge, and Safari (Webkit engines) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;          /* Width of vertical scrollbar */
+  height: 8px;         /* Height of horizontal scrollbar */
+}
+
+/* The background track of the scrollbar */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #18181b; /* Zinc-900 background */
+  border-radius: 6px;
+}
+
+/* The actual draggable scroll indicator (thumb) */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3f3f46; /* Zinc-700 color */
+  border-radius: 6px;
+  border: 2px solid #18181b; /* Creates a gap effect around the thumb */
+}
+
+/* Scrollbar thumb hover state */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #52525b; /* Zinc-600 on hover */
+}

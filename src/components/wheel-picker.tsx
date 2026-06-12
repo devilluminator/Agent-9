@@ -1,0 +1,57 @@
+import "@ncdai/react-wheel-picker/style.css";
+
+import * as WheelPickerPrimitive from "@ncdai/react-wheel-picker";
+import type { ComponentProps } from "react";
+
+import { cn } from "@/lib/utils";
+
+type WheelPickerValue = WheelPickerPrimitive.WheelPickerValue;
+
+type WheelPickerOption<T extends WheelPickerValue = string> =
+  WheelPickerPrimitive.WheelPickerOption<T>;
+
+type WheelPickerClassNames = WheelPickerPrimitive.WheelPickerClassNames;
+
+function WheelPickerWrapper({
+  className,
+  ...props
+}: ComponentProps<typeof WheelPickerPrimitive.WheelPickerWrapper>) {
+  return (
+    <WheelPickerPrimitive.WheelPickerWrapper
+      className={cn(
+        "bg-white dark:bg-zinc-900 shadow-xs px-1 border border-zinc-200 dark:border-zinc-700/80 rounded-lg w-56",
+        "*:data-rwp:first:*:data-rwp-highlight-wrapper:rounded-s-md",
+        "*:data-rwp:last:*:data-rwp-highlight-wrapper:rounded-e-md",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function WheelPicker<T extends WheelPickerValue = string>({
+  classNames,
+  ...props
+}: WheelPickerPrimitive.WheelPickerProps<T>) {
+  return (
+    <WheelPickerPrimitive.WheelPicker
+      classNames={{
+        optionItem: cn(
+          "data-disabled:opacity-0 text-zinc-300 dark:text-zinc-500",
+          classNames?.optionItem,
+        ),
+        highlightWrapper: cn(
+          "bg-zinc-900/30 dark:bg-zinc-800 text-zinc-100 dark:text-zinc-50",
+          "data-rwp-focused:inset-ring-2 data-rwp-focused:inset-ring-zinc-300 dark:data-rwp-focused:inset-ring-zinc-600",
+          classNames?.highlightWrapper,
+        ),
+        highlightItem: cn("data-disabled:opacity-0", classNames?.highlightItem),
+      }}
+      {...props}
+    />
+  );
+}
+
+export { WheelPicker, WheelPickerWrapper };
+export type { WheelPickerClassNames, WheelPickerOption };
+

@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import useStore from "@/store";
 import executeAnyCommand from "@/tools/shell";
 import type { ModelsListResponse } from "@/types/models";
 import { fetch } from "@tauri-apps/plugin-http";
@@ -420,6 +421,7 @@ function ModelPanel({
 // ----------------------------------------------------------------------
 
 export default function Setup() {
+  const { updateProvider } = useStore();
   //
   const [panel, animate] = useAnimate();
   //
@@ -528,12 +530,13 @@ export default function Setup() {
                 provider === "api" ? apiKeyRef.current?.value || "" : "";
 
               const settings = {
+                provider_name: selectedProvider || "",
                 base_url,
                 api_key,
                 model: selectedModel,
               };
 
-              localStorage.setItem("settings", JSON.stringify(settings));
+              updateProvider(settings);
               animate(
                 panel.current,
                 { opacity: 0 },
